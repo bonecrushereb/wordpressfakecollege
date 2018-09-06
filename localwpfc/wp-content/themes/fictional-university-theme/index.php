@@ -1,5 +1,3 @@
-<h1><?php bloginfo('title'); ?></h1>
-
 <?php get_header(); ?>
 
 <div class="page-banner">
