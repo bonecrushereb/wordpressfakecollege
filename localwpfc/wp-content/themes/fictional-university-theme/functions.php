@@ -36,3 +36,15 @@ function university_adjust_queries($query) {
 }
 
 add_action('pre_get_posts', 'university_adjust_queries');
+
+function filter_handler( $classes, $item, $args ) {
+ if ( 'headerMenuLocation' === $args->theme_location ) {
+     if ( get_post_type() == 'post' && $item->title === 'Blog' ) {
+         $classes[] = 'current-menu-item';
+ } else if ((get_post_type() == 'event' AND $item->title === 'Events') OR (is_page('past-events') AND $item->title === 'Events')) {
+ $classes[] = 'current-menu-item';
+ }
+    }
+    return $classes;
+ }
+ add_filter( 'nav_menu_css_class', 'filter_handler', 10, 3 );
