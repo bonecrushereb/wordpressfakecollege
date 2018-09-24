@@ -51,6 +51,7 @@
         'total' => $pastEvents->max_num_pages
       )); 
      ?>
+     
     </div>
 
 <?php get_footer(); ?>
