@@ -76,7 +76,7 @@ while (have_posts()) {
           while($homepageEvents->have_posts()) {
             $homepageEvents->the_post();            
             get_template_part('template-parts/content-event');
-            }
+              }
         }
         ?>
     </div>

@@ -86,4 +86,10 @@ function filter_handler( $classes, $item, $args ) {
     }
     return $classes;
  }
- add_filter( 'nav_menu_css_class', 'filter_handler', 10, 3 );
+
+ function universityMapKey($api) {
+  $api['key'] = 'AIzaSyDVF852eHpxDGRmG7iFRxcOlk80_8AITbg';
+  return $api;
+ }
+  add_filter('acf/fields/google_map/api', 'universityMapKey');
+
