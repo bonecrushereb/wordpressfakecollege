@@ -59,6 +59,8 @@ function university_adjust_queries($query) {
     $query->set('orderby', 'title');
     $query->set('order', 'ASC');
     $query->set('posts_per_page', -1);
+  } elseif (!is_admin() AND is_post_type_archive('campus') AND $query->is_main_query()) {
+    $query->set('posts_per_page', -1);
   } elseif (!is_admin() AND is_post_type_archive('event') AND $query->is_main_query()) {
     $today = date('Ymd');
     $query->set('meta_key', 'event_date');
