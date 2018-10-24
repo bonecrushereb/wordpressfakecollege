@@ -2,6 +2,7 @@ import $ from 'jquery';
 
 class Search {
   constructor() {
+    this.results = $("#search-overlay__results");
     this.openButton = $(".js-search-trigger");
     this.closeButton = $(".search-overlay__close");
     this.searchOverlay = $(".search-overlay");
@@ -14,7 +15,7 @@ class Search {
     this.openButton.on("click", this.openOverlay.bind(this));
     this.closeButton.on("click", this.closeOverlay.bind(this));
     $(document).on("keydown", this.keyPressDispatcher.bind(this));
-    this.searchField.on("keydown", this.typingLogic.bind(this)) 
+    this.searchField.on("keydown", this.typingLogic.bind(this));
   }
 
 
