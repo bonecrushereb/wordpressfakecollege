@@ -23,6 +23,8 @@ class Search {
 
 
   typingLogic() {
+    const url = 'http://localhost:3000/localwpfc/wp-json/wp/v2/posts?search=' + this.searchField.val();
+
     if (this.searchField.val() != this.prevValue) {
       clearTimeout(this.typingTimer);
       if (this.searchField.val()) {
@@ -31,7 +33,9 @@ class Search {
           this.isSpinnerVisible = true;
         }
         this.typingTimer = setTimeout(function () {
-          this.searchResults.html("search results here");
+          $.getJSON(url, function(data) {
+            console.log(data[0].title.rendered);
+          });
           this.isSpinnerVisible = false;
         }.bind(this), 2000);
       } else {
