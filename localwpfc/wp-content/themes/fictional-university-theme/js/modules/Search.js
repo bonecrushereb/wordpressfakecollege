@@ -23,7 +23,7 @@ class Search {
 
 
   typingLogic() {
-    const url = 'http://localhost:3000/localwpfc/wp-json/wp/v2/posts?search=' + this.searchField.val();
+    const url = universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val();
     if (this.searchField.val() != this.prevValue) {
       clearTimeout(this.typingTimer);
 
@@ -36,10 +36,10 @@ class Search {
           $.getJSON(url, data => {
             this.searchResults.html(`
               <h2 class="search-overlay__section-title">General Information</h2>
-              <ul class="linked-list min-list">
+              ${data.length ? '<ul class="linked-list min-list">': '<p>No General Information found.</p>'}
                 ${data.map(data => `<li><a href="${data.link}">${data.title.rendered}</a></li>`).join('')}
-              </ul>
               `);
+            this.isSpinnerVisible = false;
           }); 
         }.bind(this), 2000);
       } else {
