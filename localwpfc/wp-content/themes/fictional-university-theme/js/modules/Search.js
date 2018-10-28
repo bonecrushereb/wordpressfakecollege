@@ -46,6 +46,8 @@ class Search {
                 ${combinedResults.map(data => `<li><a href="${data.link}">${data.title.rendered}</a></li>`).join('')}
               `);
               this.isSpinnerVisible = false;
+          }, () => {
+            this.searchResults.html('<p>Unexpected Error. Please try again!</p>');
           });
         }.bind(this), 375);
       } else {
