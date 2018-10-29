@@ -43,7 +43,8 @@ class Search {
               this.searchResults.html(`
                 <h2 class="search-overlay__section-title">General Information</h2>
                 ${combinedResults.length ? '<ul class="linked-list min-list">': '<p>No General Information found.</p>'}
-                ${combinedResults.map(data => `<li><a href="${data.link}">${data.title.rendered}</a> ${data.type == 'post' ? `by ${data.authorName}` : ''}</li>`).join('')}
+                ${combinedResults.map(data => `<li><a href="${data.link}">${data.title.rendered}</a> 
+                  ${data.type == 'post' ? `by ${data.authorName}` : ''}</li>`).join('')}
               `);
               this.isSpinnerVisible = false;
           }, () => {
