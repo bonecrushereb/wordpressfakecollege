@@ -15,7 +15,7 @@ function universitySearchResults($data) {
     's' => sanitize_text_field($data['term'])
   ));
 
-  $searchResults = array(
+  $results = array(
     'generalInfo' => array(),
     'professors' =>array(),
     'programs' =>array(),
@@ -27,32 +27,34 @@ function universitySearchResults($data) {
     $searchQuery->the_post();
 
     if (get_post_type() == 'post' OR get_post_type() == 'page') {
-      array_push($searchResults['generalInfo'], array(
+      array_push($results['generalInfo'], array(
+        'authorName' => get_the_author(),
+        'postType' => get_post_type(),
         'title' => get_the_title(),
         'permalink' => get_the_permalink()
       ));
     } else if (get_post_type() == 'professor') {
-      array_push($searchResults['professors'], array(
+      array_push($results['professors'], array(
         'title' => get_the_title(),
         'permalink' => get_the_permalink()
       ));
     } else if (get_post_type() == 'program') {
-      array_push($searchResults['programs'], array(
+      array_push($results['programs'], array(
         'title' => get_the_title(),
         'permalink' => get_the_permalink()
       ));
     } else if (get_post_type() == 'event') {
-      array_push($searchResults['events'], array(
+      array_push($results['events'], array(
         'title' => get_the_title(),
         'permalink' => get_the_permalink()
       ));
     } else if (get_post_type() == 'campus') {
-      array_push($searchResults['campuses'], array(
+      array_push($results['campuses'], array(
         'title' => get_the_title(),
         'permalink' => get_the_permalink()
       ));
     }
   }
 
-  return $searchResults;
+  return $results;
 }
