@@ -46,25 +46,41 @@ class Search {
                 </div>
                 <div class="one-third">
                   <h2 class="search-overlay__section-title">Programs</h2>
-                    ${results.programs.length ? '<ul class="linked-list min-list">': '<p>No Programs found.</p>'}
+                    ${results.programs.length ? '<ul class="linked-list min-list">': `<p>No Programs match that search.<a href="${universityData.root_url}/programs"> View all programs</a></p>`}
                     ${results.programs.map(data => `<li><a href="${data.permalink}">${data.title}</a></li>`).join('')}
                     ${results.programs.length ? '</ul>' : ''}
                   <h2 class="search-overlay__section-title">Professors</h2>
-                    ${results.generalInfo.length ? '<ul class="linked-list min-list">': '<p>No Professors found.</p>'}
-                    ${results.generalInfo.map(data => `<li><a href="${data.permalink}">${data.title}</a> 
-                    ${data.postType == 'post' ? `by ${data.authorName}` : ''}</li>`).join('')}
-                    ${results.generalInfo.length ? '</ul>' : ''}
+                    ${results.professors.length ? '<ul class="professor-cards">': '<p>No Professors found.</p>'}
+                    ${results.professors.map(data => `
+                    <li class="professor-card__list-item">
+                      <a class="professor-card" href="${data.permalink}">
+                        <img class="professor-card__image" src="${data.image}?>">
+                        <span class="professor-card__name">${data.title}</span>
+                      </a>
+                    </li>
+                    `).join('')}
+                    ${results.professors.length ? '</ul>' : ''}
                 </div>
                 <div class="one-third">
                   <h2 class="search-overlay__section-title">Campuses</h2>
-                    ${results.campuses.length ? '<ul class="linked-list min-list">': '<p>No Campuses found.</p>'}
+                    ${results.campuses.length ? '<ul class="linked-list min-list">': `<p>No campuses match that search.<a href="${universityData.root_url}/campuses"> View all campuses</a></p>`}
                     ${results.campuses.map(data => `<li><a href="${data.permalink}">${data.title}</a></li>`).join('')}
                     ${results.campuses.length ? '</ul>' : ''}
                   <h2 class="search-overlay__section-title">Events</h2>
-                    ${results.generalInfo.length ? '<ul class="linked-list min-list">': '<p>No Events found.</p>'}
-                    ${results.generalInfo.map(data => `<li><a href="${data.permalink}">${data.title}</a> 
-                    ${data.postType == 'post' ? `by ${data.authorName}` : ''}</li>`).join('')}
-                    ${results.generalInfo.length ? '</ul>' : ''}
+                    ${results.events.length ? '': `<p>No Events match that search. <a href="${universityData.root_url}/events">View all events</a></p>`}
+                    ${results.events.map(data => `
+                      <div class="event-summary">
+                        <a class="event-summary__date t-center" href="${data.permalink}">
+                          <span class="event-summary__month">${data.month}</span>
+                          <span class="event-summary__day">${data.day}</span>  
+                        </a>
+                        <div class="event-summary__content">
+                          <h5 class="event-summary__title headline headline--tiny"><a href="${data.permalink}">${data.title}</h5>
+                          </a><p>${data.desc} <a href="${data.permalink}" class="nu gray">Learn more</a></p>
+                        </div>
+                      </div>
+                    `).join('')}
+                    ${results.events.length ? '</ul>' : ''}
                 </div>
               </div>
             `);
