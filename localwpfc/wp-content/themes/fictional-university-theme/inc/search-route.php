@@ -67,11 +67,13 @@ function universitySearchResults($data) {
 
   $programRelationshipQuery = new WP_QUERY(array(
     'post_type' => 'professor',
-    'meta-query' => array(array(
-      'key' => 'related_programs',
-      'compare' => 'LIKE',
-      'value' => '"75"'
-    ))
+    'meta_query' => array(
+      array(
+        'key' => 'related_programs',
+        'compare' => 'LIKE',
+        'value' => '"67"'
+      )
+    )
   ));
 
   while ($programRelationshipQuery->have_posts()) {
