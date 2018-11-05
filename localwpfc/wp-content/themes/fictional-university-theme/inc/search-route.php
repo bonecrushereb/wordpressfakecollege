@@ -42,7 +42,8 @@ function universitySearchResults($data) {
     } else if (get_post_type() == 'program') {
       array_push($results['programs'], array(
         'title' => get_the_title(),
-        'permalink' => get_the_permalink()
+        'permalink' => get_the_permalink(),
+        'id' => get_the_id()
       ));
     } else if (get_post_type() == 'event') {
       $eventDate = new DateTime(get_field('event_date'));
@@ -65,13 +66,17 @@ function universitySearchResults($data) {
     }
   }
 
+  $programsMetaQuery = array(
+    'relation' => 'OR'
+  );
+
   $programRelationshipQuery = new WP_QUERY(array(
     'post_type' => 'professor',
     'meta_query' => array(
       array(
         'key' => 'related_programs',
         'compare' => 'LIKE',
-        'value' => '"67"'
+        'value' => '"' . $results['programs'][0]['id'] . '"'
       )
     )
   ));
