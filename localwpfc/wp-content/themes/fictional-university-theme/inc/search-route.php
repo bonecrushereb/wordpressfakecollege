@@ -70,15 +70,17 @@ function universitySearchResults($data) {
     'relation' => 'OR'
   );
 
-  $programRelationshipQuery = new WP_QUERY(array(
-    'post_type' => 'professor',
-    'meta_query' => array(
-      array(
+  foreach ($results['programs'] as $item) {
+    array_push($programsMetaQuery, array(
         'key' => 'related_programs',
         'compare' => 'LIKE',
-        'value' => '"' . $results['programs'][0]['id'] . '"'
-      )
-    )
+        'value' => '"' . $item['id'] . '"'
+      ));
+  }
+
+  $programRelationshipQuery = new WP_QUERY(array(
+    'post_type' => 'professor',
+    'meta_query' => $programsMetaQuery
   ));
 
   while ($programRelationshipQuery->have_posts()) {
