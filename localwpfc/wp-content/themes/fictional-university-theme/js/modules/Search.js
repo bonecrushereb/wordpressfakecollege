@@ -35,6 +35,7 @@ class Search {
         }
         this.typingTimer = setTimeout(function() {
           $.getJSON(url, (results) => {
+            console.log(results);
             this.searchResults.html(`
               <div class="row">
                 <div class="one-third">
@@ -64,7 +65,8 @@ class Search {
                 <div class="one-third">
                   <h2 class="search-overlay__section-title">Campuses</h2>
                     ${results.campuses.length ? '<ul class="linked-list min-list">': `<p>No campuses match that search.<a href="${universityData.root_url}/campuses"> View all campuses</a></p>`}
-                    ${results.campuses.map(data => `<li><a href="${data.permalink}">${data.title}</a></li>`).join('')}
+                    ${results.campuses.map(data => `<li><a href="${data.permalink}">${data.title}</a>
+                      </li>`).join('')}
                     ${results.campuses.length ? '</ul>' : ''}
                   <h2 class="search-overlay__section-title">Events</h2>
                     ${results.events.length ? '': `<p>No Events match that search. <a href="${universityData.root_url}/events">View all events</a></p>`}
