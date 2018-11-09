@@ -16,6 +16,8 @@
       } else {
         echo '<h2 class="headline headline--small-plus">No results match that search</h2>';
       }
+
+      get_search_form();
      ?>
     </div>
 
