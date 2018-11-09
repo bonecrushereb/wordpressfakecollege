@@ -19,6 +19,8 @@ function university_post_types() {
   ));
 
   register_post_type('event', array(
+    'capability_type' => 'event',
+    'map_meta_cap' => true,
     'supports' => array('title', 'editor', 'excerpt'),
     'rewrite' => array(
       'slug' => 'events'
