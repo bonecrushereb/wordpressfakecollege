@@ -113,3 +113,13 @@ function filter_handler( $classes, $item, $args ) {
  }
   add_filter('acf/fields/google_map/api', 'universityMapKey');
 
+
+  function redirectFrontEnd () {
+    $currentUser = wp_get_current_user();
+    if (count($currentUser->roles) == 1 AND $currentUser->roles[0] == 'subscriber') {
+      wp_redirect(site_url('/'));
+      exit;
+    }
+  }
+  add_action('admin_init', 'redirectFrontEnd');
+
