@@ -114,12 +114,20 @@ function filter_handler( $classes, $item, $args ) {
   add_filter('acf/fields/google_map/api', 'universityMapKey');
 
 
-  function redirectFrontEnd () {
-    $currentUser = wp_get_current_user();
-    if (count($currentUser->roles) == 1 AND $currentUser->roles[0] == 'subscriber') {
-      wp_redirect(site_url('/'));
-      exit;
-    }
+function redirectFrontEnd () {
+  $currentUser = wp_get_current_user();
+  if (count($currentUser->roles) == 1 AND $currentUser->roles[0] == 'subscriber') {
+    wp_redirect(site_url('/'));
+    exit;
   }
-  add_action('admin_init', 'redirectFrontEnd');
+}
+add_action('wp_loaded', 'adminBar');
+
+function adminBar () {
+  $currentUser = wp_get_current_user();
+  if (count($currentUser->roles) == 1 AND $currentUser->roles[0] == 'subscriber') {
+    show_admin_bar(false);
+  }
+}
+add_action('admin_init', 'redirectFrontEnd');
 
