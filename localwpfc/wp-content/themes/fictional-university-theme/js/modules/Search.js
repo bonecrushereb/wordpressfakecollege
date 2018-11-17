@@ -35,7 +35,6 @@ class Search {
         }
         this.typingTimer = setTimeout(function() {
           $.getJSON(url, (results) => {
-            console.log(results);
             this.searchResults.html(`
               <div class="row">
                 <div class="one-third">
