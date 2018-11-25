@@ -9,6 +9,31 @@ class MyNotes {
     $(".delete-note").on("click", this.deleteNote);
     $(".edit-note").on("click", this.editNote.bind(this));
     $(".update-note").on("click", this.updateNote.bind(this));
+    $(".submit-note").on("click", this.createNote.bind(this));
+  }
+
+   createNote(e) {
+    const noteUrl = universityData.root_url + '/wp-json/wp/v2/note/';
+
+    $.ajax({
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+      },
+      url: noteUrl,
+      type: 'POST',
+      data: {
+        'title': $('.new-note-title').val() ,
+        'content': $('.new-note-body').val(), 
+        'status': 'publish'
+      },
+      success: (response) => {
+        $('.new-note-title, .new-note-body').val('');
+        $('<li>Test</li>').prependTo('#my-notes').hide().slideDown();
+      },
+      error: (response) => {
+        console.log(response);
+      }
+    });
   }
 
     editNote(e) {
