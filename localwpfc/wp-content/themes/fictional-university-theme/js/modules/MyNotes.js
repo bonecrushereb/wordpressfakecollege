@@ -17,11 +17,7 @@ class MyNotes {
       },
       url: noteUrl,
       type: 'POST',
-      data: {
-        'title': $('.new-note-title').val() ,
-        'content': $('.new-note-body').val(), 
-        'status': 'publish'
-      },
+      data: { 'title': $('.new-note-title').val(), 'content': $('.new-note-body').val(), 'status': 'publish' },
       success: (res) => {
         $('.new-note-title, .new-note-body').val('');
         $(`
