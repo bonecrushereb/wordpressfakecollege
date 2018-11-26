@@ -2,10 +2,6 @@ import $ from 'jquery';
 
 class MyNotes {
   constructor() {
-    this.events();
-  }
-
-    events() {
     $("#my-notes").on("click", ".delete-note" ,this.deleteNote);
     $("#my-notes").on("click", ".edit-note" ,this.editNote.bind(this));
     $("#my-notes").on("click", ".update-note" ,this.updateNote.bind(this));
@@ -78,11 +74,11 @@ class MyNotes {
       url: noteUrl,
       type: 'POST',
       data: {'title': thisNote.find('.note-title-field').val() ,'content': thisNote.find('.note-body-field').val()},
-      success: (response) => {
+      success: (res) => {
         this.noteReadOnly(thisNote);
       },
-      error: (response) => {
-        console.log(response);
+      error: (res) => {
+        console.log(res);
       }
     });
   }
@@ -90,18 +86,18 @@ class MyNotes {
   deleteNote(e) {
     const thisNote = $(e.target).parents('li');
     const noteUrl = universityData.root_url + '/wp-json/wp/v2/note/' + thisNote.data('id');
-    if(confirm('Are you sure you want to delete ' + $('input').val() + '?')) { 
+    if(confirm('Are you sure you want to delete ' + thisNote[0].children[0]['value'] + '?')) { 
       $.ajax({
       beforeSend: (xhr) => {
         xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
       },
       url: noteUrl,
       type: 'DELETE',
-      success: (response) => {
+      success: (res) => {
         thisNote.slideUp();
       },
-      error: (response) => {
-        console.log(response);
+      error: (res) => {
+        console.log(res);
       }
       });
     } else {
