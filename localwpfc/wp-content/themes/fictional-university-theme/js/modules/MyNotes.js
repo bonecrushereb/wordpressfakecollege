@@ -31,7 +31,8 @@ class MyNotes {
           `).prependTo('#my-notes').hide().slideDown();
       },
       error: (res) => {
-        console.log(res.responseText);
+          $('.note-limit-message').addClass('active');
+          $('.note-limit-message').prepend(res.responseText);
       }
     });
   }
@@ -91,6 +92,10 @@ class MyNotes {
       type: 'DELETE',
       success: (res) => {
         thisNote.slideUp();
+        if(res.userNoteCount < 5) {
+          $('.note-limit-message').removeClass('active');
+          $('.note-limit-message').empty();
+        }
       },
       error: (res) => {
         console.log(res);
