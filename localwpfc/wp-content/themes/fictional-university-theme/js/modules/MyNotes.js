@@ -31,7 +31,7 @@ class MyNotes {
           `).prependTo('#my-notes').hide().slideDown();
       },
       error: (res) => {
-        console.log(res);
+        console.log(res.responseText);
       }
     });
   }

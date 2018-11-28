@@ -152,10 +152,14 @@ function loginTitle() {
   return get_bloginfo('name');
 }
 
-add_filter('wp_insert_post_data', 'privateNote');
+add_filter('wp_insert_post_data', 'privateNote', 10, 2);
 
-function privateNote($data) {
+function privateNote($data, $postarr) {
   if ($data['post_type'] == 'note') {
+    if (count_user_posts(get_current_user_id(), 'note') >= 4 AND !$postarr['ID']) {
+      die('You have reached the note limit');
+    }
+
     $data['post_content'] = sanitize_textarea_field($data['post_content']);
     $data['post_title'] = sanitize_textarea_field($data['post_title']);
   }
