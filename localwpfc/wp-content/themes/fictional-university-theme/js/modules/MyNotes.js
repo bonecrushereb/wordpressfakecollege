@@ -92,7 +92,7 @@ class MyNotes {
       type: 'DELETE',
       success: (res) => {
         thisNote.slideUp();
-        if(res.userNoteCount < 5) {
+        if(res.userNoteCount < 31) {
           $('.note-limit-message').removeClass('active');
           $('.note-limit-message').empty();
         }

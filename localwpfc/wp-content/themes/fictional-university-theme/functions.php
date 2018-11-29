@@ -160,7 +160,7 @@ add_filter('wp_insert_post_data', 'privateNote', 10, 2);
 
 function privateNote($data, $postarr) {
   if ($data['post_type'] == 'note') {
-    if (count_user_posts(get_current_user_id(), 'note') >= 4 AND !$postarr['ID']) {
+    if (count_user_posts(get_current_user_id(), 'note') >= 30 AND !$postarr['ID']) {
       die('You have reached the note limit');
     }
 
