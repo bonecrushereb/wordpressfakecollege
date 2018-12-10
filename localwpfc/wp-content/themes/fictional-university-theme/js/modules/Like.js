@@ -15,8 +15,12 @@ class Like {
   }
 
   createLike(currentLikeBox) {
+    const likeUrl =  universityData.root_url + '/wp-json/university/v1/manageLike'
     $.ajax({
-      url: universityData.root_url + '/wp-json/university/v1/manageLike',
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+      },
+      url: likeUrl,
       type: 'POST',
       data: { 'professorId': currentLikeBox.data('professor') },
       success: (res) => {
