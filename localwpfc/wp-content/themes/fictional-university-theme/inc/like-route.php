@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 add_action('rest_api_init', 'universityLikeRoutes');
 
@@ -6,7 +6,7 @@ add_action('rest_api_init', 'universityLikeRoutes');
   register_rest_route('university/v1', 'manageLike', array(
     'methods' => 'POST',
     'callback' => 'createLike'
-  )); 
+  ));
 
   register_rest_route('university/v1', 'manageLike', array(
     'methods' => 'DELETE',
@@ -15,7 +15,7 @@ add_action('rest_api_init', 'universityLikeRoutes');
  }
 
  function createLike($data) {
-  if(is_user_logged_in()) {    
+  if(is_user_logged_in()) {
     $professor = sanitize_text_field($data['professorId']);
 
      $existQuery = new WP_QUERY(array(
@@ -34,7 +34,6 @@ add_action('rest_api_init', 'universityLikeRoutes');
       return wp_insert_post(array(
         'post_type' => 'like',
         'post_status' => 'publish',
-        'post_title' => '2nd PHP Test',
         'meta_input' => array(
           'liked_professor_id' => $professor
         )
@@ -48,6 +47,12 @@ add_action('rest_api_init', 'universityLikeRoutes');
     }
  }
 
- function deleteLike() {
-  return 'Deleted Like';
- }
+function deleteLike($data) {
+  $likeId = sanitize_text_field($data['like']);
+  if (get_current_user_id() == get_post_field('post_author', $likeId) AND get_post_type($likeId) == 'like') {
+    wp_delete_post($likeId, true);
+    return 'like deleted.';
+  } else {
+    die("You do not have permission to delete that.");
+  }
+}
